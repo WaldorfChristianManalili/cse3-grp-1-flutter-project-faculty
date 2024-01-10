@@ -1,35 +1,17 @@
 import 'package:cse3_undergrad_studentside/components/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
-import './login.dart';
+import '../main.dart';
 
 var parser = EmojiParser();
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      home: Account(),
-    );
-  }
-}
-
-class Account extends StatelessWidget {
-  final String studentname = 'Juan Dela Cruz';
-  final String studentnum = '2020-110299';
+class FacultyAccount extends StatelessWidget {
+  final String facultyname = 'Maria Dela Cruz';
+  final String facultyid = '1111-111111';
   final bool enrollstatus = false;
-  final String course = '(BSCS) Bachelor of Science in Computer Science';
   final String college = 'College of Engineering';
-  final String schoolyear = 'School Year 2023 - 2024 1st  Semester';
+  final String gsisnumber = '0033-1115041-3';
+  final String tinnumber = '000-000-000-0000';
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +44,11 @@ class Account extends StatelessWidget {
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Hi ',
+                      text: 'Hi, ',
                       style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                     TextSpan(
-                      text: '$studentname',
+                      text: '$facultyname',
                       style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                     TextSpan(
@@ -83,38 +65,7 @@ class Account extends StatelessWidget {
                   children: <Widget>[
                     Icon(Icons.info_outline, size: 18.0),
                     SizedBox(width: 12.0),
-                    Text('$studentnum'),
-                  ],
-                ),
-              ),
-              SizedBox(height: 25.0),
-              Row(
-                children: <Widget>[
-                  Text('Enrollment Status: ', style: TextStyle(color: Colors.black, fontSize: 16)),
-                  SizedBox(width: 14.0),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 1.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: enrollstatus ? Colors.green : Colors.red),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Text(
-                      enrollstatus ? 'Enrolled' : 'Not Enrolled',
-                      style: TextStyle(color: enrollstatus ? Colors.green : Colors.red, fontSize: 16),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 25.0),
-              DefaultTextStyle(
-                style: TextStyle(fontSize: 17.0, height: 1.5, color: Colors.black),
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.work_outline, size: 18.0),
-                    SizedBox(width: 12.0),
-                    Flexible(
-                      child: Text('$course'),
-                    ),
+                    Text('$facultyid'),
                   ],
                 ),
               ),
@@ -131,15 +82,28 @@ class Account extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 25.0),
+              DefaultTextStyle(
+                style: TextStyle(fontSize: 17.0, height: 1.5, color: Colors.black),
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.subtitles, size: 18.0),
+                    SizedBox(width: 12.0),
+                    Flexible(
+                      child: Text('$gsisnumber'),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 5.0),
               DefaultTextStyle(
                 style: TextStyle(fontSize: 17.0, height: 1.5, color: Colors.black),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.calendar_month_outlined, size: 20.0),
+                    Icon(Icons.confirmation_number, size: 20.0),
                     SizedBox(width: 12.0),
                     Flexible(
-                      child: Text('$schoolyear'),
+                      child: Text('$tinnumber'),
                     ),
                   ],
                 ),

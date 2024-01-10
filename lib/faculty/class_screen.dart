@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'class_assignment_widget.dart';
 import 'grades_screen.dart';
 import 'teaching_screen.dart';
+import 'faculty_account.dart';
 
 class ClassScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(0.0, 0.0), // Set the preferred size to zero
@@ -46,6 +47,10 @@ class ClassScreen extends StatelessWidget {
                     icon: Icon(Icons.star),
                     text: 'Grades',
                   ),
+                  Tab(
+                    icon: Icon(Icons.settings),
+                    text: 'Account',
+                  ),
                 ],
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
@@ -63,6 +68,7 @@ class ClassScreen extends StatelessWidget {
                   ClassAssignmentWidget(),
                   TeachingScreen(),
                   GradesScreen(),
+                  FacultyAccount(),
                 ],
               ),
             ),

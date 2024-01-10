@@ -1,96 +1,148 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
+import 'faculty/faculty_main.dart';
 
-import '../dashboard.dart';
-import '../grade.dart';
-import '../info.dart';
-import '../enrollment.dart';
-import '../account.dart';
+void main() => runApp(const BottomSheetApp());
 
-var parser = EmojiParser();
+class BottomSheetApp extends StatelessWidget {
+  const BottomSheetApp({super.key});
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: Dashboard(),
+      home: const Scaffold(
+        body: BottomSheetExample(),
+      ),
     );
   }
 }
 
-class Main extends StatefulWidget {
+class BottomSheetExample extends StatefulWidget {
+  const BottomSheetExample({super.key});
+
   @override
-  State<Main> createState() => _MainState();
+  _BottomSheetExampleState createState() => _BottomSheetExampleState();
 }
 
-class _MainState extends State<Main> {
-  int navIndex = 0;
-  List<Widget> pages = [
-    Dashboard(),
-    StudentEnrollment(),
-    Grades(),
-    StudentInfo(),
-    Account(),
-  ];
+class _BottomSheetExampleState extends State<BottomSheetExample> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _showModalBottomSheet());
+  }
+
+  void _showModalBottomSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true, // Allow the sheet to take full screen height
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      isDismissible: false,
+      enableDrag: false,
+      builder: (BuildContext context) {
+        return SingleChildScrollView( // Make the entire bottom sheet scrollable
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Image.asset(
+                  'assets/plm_logo.png',
+                  height: 60,
+                  width: 30,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Pamantasan ng Lungsod ng Maynila',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Text(
+                  'University of the City of Manila',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Log In using your PLM account (SSO)',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                ElevatedButton.icon(
+                  icon: ImageIcon(AssetImage("assets/microsoft_logo.png"), size: 20),
+                  label: const Text('Log in as Faculty'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  FacultyMain()),
+                    );
+                  },
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 15, horizontal: 10,)),
+                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(24, 24, 27, 1)),
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                ),
+                const Divider(height: 40, thickness: 2),
+                const Text(
+                  'Not currently enroll in PLM?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 15, horizontal: 10,)),
+                    backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(251, 191, 36, 1)),
+                    elevation: MaterialStateProperty.all(0.0),
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  child: const Text('Apply Now'),
+                  onPressed: () {
+                    // Handle apply now logic
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: pages[navIndex],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            navIndex = index;
-          });
-        },
-        currentIndex: navIndex,
-        type: BottomNavigationBarType.fixed,
-        // Remove scaling when item is selected
-        selectedItemColor: Colors.amber,
-        unselectedItemColor: Colors.grey[400],
-        showUnselectedLabels: true,
-        iconSize: 30,
-        elevation: 50,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Enrollment',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grade),
-            label: 'Grades',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: 'Info',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Account',
-          ),
-        ],
-
-      ),
-    );
+    return const SizedBox();
   }
 }
