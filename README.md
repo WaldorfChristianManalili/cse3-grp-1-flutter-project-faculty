@@ -1,6 +1,6 @@
-# cse3_undergrad_studentside
+# cse3_faculty_side
 
-CSE-3 Project Undergrad Student Side
+CSE-3 Project Faculty Side
 
 ## Getting Started
 
